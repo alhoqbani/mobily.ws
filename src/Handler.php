@@ -2,7 +2,7 @@
 
 namespace Alhoqbani\MobilyWs;
 
-use Alhoqbani\MobilyWs\Exception\ServiceIsNotAvaliableException;
+use Alhoqbani\MobilyWs\Exceptions\ServiceIsNotAvaliableException;
 use GuzzleHttp\Client;
 
 
