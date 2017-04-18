@@ -1,0 +1,27 @@
+{
+    "name": "alhoqbani/mobily.ws",
+    "description": "Laravel Mobily.ws SMS",
+    "keywords": ["laravel", "SMS", "Mobily.ws"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hamoud Alhoqbani",
+            "email": "h.alhoqbani@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "guzzlehttp/guzzle": "6.2.*",
+        "illuminate/support": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.1.*",
+        "mockery/mockery": "~0.9.0",
+        "orchestra/testbench": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alhoqbani\\MobilyWs\\": "src/"
+        }
+    }
+}
