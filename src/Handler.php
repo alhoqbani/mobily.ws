@@ -18,10 +18,10 @@ class Handler
 
     public function __construct()
     {
-        // $config = include "../config/SMS.php";
-        // foreach ($config as $key => $value) {
-        //     $this->{$key} = $value;
-        // }
+         $config = config('SMS');
+         foreach ($config as $key => $value) {
+             $this->{$key} = $value;
+         }
     }
 
     public static function getClient()
@@ -39,7 +39,7 @@ class Handler
      * @return string
      * @throws \Exception
      */
-    public function getBalance()
+    protected function getBalance()
     {
         if($this->setBalance()) {
             return (int) $this->availableBalance;
@@ -47,7 +47,7 @@ class Handler
         return $this->errorMessages['balance'];
     }
 
-    public function sendMessage($message) {
+    protected function sendMessage($message) {
         $endpoint = 'msgSend';
         $params = [
             'mobile' => $this->mobile,
@@ -107,11 +107,12 @@ class Handler
     }
 
     /**
-     * @param $endpoint
-     * @param $parmas
+     * Send the request to Api using Post method
+     * @param string $endpoint
+     * @param array $parmas
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function postRequest($endpoint, $parmas): \Psr\Http\Message\ResponseInterface
+    private function postRequest(string $endpoint, array $parmas): \Psr\Http\Message\ResponseInterface
     {
         $this->serviceIsActive();
         $response = $this->client()->post($endpoint. '.php', ['form_params' => $parmas]);

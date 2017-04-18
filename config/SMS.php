@@ -6,17 +6,17 @@ return [
     | Account Details
     |--------------------------------------------------------------------------
     |
-    | Define Your Mobile and Password used to log in to
+    | Set your mobile number and Password used to log in to
     | http://mobily.ws
     |
     */
     
-    // Set your mobile number and password used to login into mobily.ws.
-    // TODO Get these values from .env
-    'mobile' => '',
-    'password' => '',
+    'mobile' => env('MOBILY_WS_MOBILE'),
+    'password' =>  env('MOBILY_WS_PASSWORD'),
+    
     // Name of Sender must be apporved by mobily.ws for GCC
-    'sender' => '',
+    // You can override this by calling sender() on SMS
+    'sender' => env('MOBILY_WS_SENDER'),
 
     /*
     |--------------------------------------------------------------------------
@@ -35,8 +35,8 @@ return [
     // 3 when using UTF-8. Don't Change
     'lang' => '3',
     
-    //
-    'domainName' => 'domainName',
+    // TODO
+    'domainName' => '',
 
     // Define options for the Http request.
     'options' => [

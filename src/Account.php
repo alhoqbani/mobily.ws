@@ -2,11 +2,6 @@
 
 namespace Alhoqbani\MobilyWs;
 
-use Alhoqbani\Mobilyws\Exception\ServiceIsNotAvaliableException;
-use GuzzleHttp\Client;
-use Alhoqbani\Mobilyws\ResponseMsg;
-
-
 class Account
 {
     public function __construct(Handler $handler)

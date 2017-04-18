@@ -16,9 +16,9 @@ class MobilyWsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('SMS', 'Alhoqbani\MobilyWs\SMS');
-
+    
         $config = __DIR__ . '/../config/SMS.php';
-        $this->mergeConfigFrom($config, 'sms');
+        $this->mergeConfigFrom($config, 'SMS');
 
         $this->publishes([__DIR__ . '/../config/SMS.php' => config_path('SMS.php')], 'config');
 
