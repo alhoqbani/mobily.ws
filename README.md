@@ -1,3 +1,11 @@
+[![Latest Stable Version](https://poser.pugx.org/alhoqbani/mobily.ws/v/stable)](https://packagist.org/packages/alhoqbani/mobily.ws)
+
+[![Total Downloads](https://poser.pugx.org/alhoqbani/mobily.ws/downloads)](https://packagist.org/packages/alhoqbani/mobily.ws)
+
+[![Latest Unstable Version](https://poser.pugx.org/alhoqbani/mobily.ws/v/unstable)](https://packagist.org/packages/alhoqbani/mobily.ws)
+
+[![License](https://poser.pugx.org/alhoqbani/mobily.ws/license)](https://packagist.org/packages/alhoqbani/mobily.ws)
+
 ## Laravel SMS Library
  Under Development, 
 **Not ready for production**.
