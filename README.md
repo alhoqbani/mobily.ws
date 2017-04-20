@@ -74,3 +74,6 @@ it takes two arguments, date and time. you can pass null to either.
         ->send();
 ```
 
+
+### Other Functions:
+`removeDuplicate()` Will remove all duplicate numbers and send notRepeat key to mobily.ws

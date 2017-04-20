@@ -37,8 +37,11 @@ return [
     
     // TODO
     'domainName' => '',
+    
+    // When true, var_dump(SMS) after sedning the request.
+    'debug' => false,
 
-    // Define options for the Http request.
+    // Define options for the Http request. (Guzzle http Client options)
     'options' => [
         'http_errors' => false,
         'debug' => false,
