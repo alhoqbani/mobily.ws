@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestMobilyWs;
+use Tests\TestBase;
 use Alhoqbani\MobilyWs\SMS;
 
-class SMSTest extends TestMobilyWs
+class SMSTest extends TestBase
 {
     
     /** @test */

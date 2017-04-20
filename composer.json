@@ -21,7 +21,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Alhoqbani\\MobilyWs\\": "src/"
+            "Alhoqbani\\MobilyWs\\": "src/",
+            "Tests\\": "tests"
         }
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestMobilyWs;
+use Tests\TestBase;
 use Alhoqbani\MobilyWs\Handler;
 
-class HandlerTest extends TestMobilyWs
+class HandlerTest extends TestBase
 {
     
     protected function setUp()

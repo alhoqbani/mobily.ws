@@ -2,9 +2,6 @@
 
 namespace Tests;
 
-use Alhoqbani\MobilyWs\SMS;
-use Alhoqbani\MobilyWs\Handler;
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -14,9 +11,9 @@ use GuzzleHttp\Exception\RequestException;
 use Orchestra\Testbench\TestCase;
 
 
-class TestMobilyWs extends TestCase
+class TestBase extends TestCase
 {
-    use SMSAssertions;
+
     protected $handler;
     
     protected function createResponse($responses =[]) {
