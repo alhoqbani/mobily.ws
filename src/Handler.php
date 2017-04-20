@@ -4,38 +4,41 @@ namespace Alhoqbani\MobilyWs;
 
 use Alhoqbani\MobilyWs\Exceptions\ServiceIsNotAvaliableException;
 use GuzzleHttp\Client;
-
+use GuzzleHttp\HandlerStack;
 
 
 class Handler
 {
+    
     private $applicationType;
     private $mobile;
     private $password;
     private $availableBalance;
     private $fullBalance;
     private $errorMessages = [];
-
-    public function __construct()
+    
+    public function __construct(HandlerStack $handler = NULL)
     {
-         $config = config('SMS');
-         foreach ($config as $key => $value) {
-             $this->{$key} = $value;
-         }
+        $config = config('SMS');
+        foreach ($config as $key => $value) {
+            $this->{$key} = $value;
+        }
+        $this->handler = $handler;
     }
-
+    
     public static function getClient()
     {
         $client = new static();
         if($client->serviceIsActive()) {
             $client = $client->client();
         }
-
+        
         return $client;
     }
-
+    
     /**
      * Get the avaliable blanace on the account
+     *
      * @return string
      * @throws \Exception
      */
@@ -44,27 +47,29 @@ class Handler
         if($this->setBalance()) {
             return (int) $this->availableBalance;
         };
+        
         return $this->errorMessages['balance'];
     }
-
-    protected function sendMessage($message) {
+    
+    protected function sendMessage($message)
+    {
         $endpoint = 'msgSend';
         $params = [
-            'mobile' => $this->mobile,
-            'password' => $this->password,
+            'mobile'          => $this->mobile,
+            'password'        => $this->password,
             'applicationType' => $this->applicationType,
-            'lang' =>  $this->lang,
-            'sender' =>  $this->sender,
+            'lang'            => $this->lang,
+            'sender'          => $this->sender,
         ];
         $params = array_merge($params, $message);
-
+        
         $response = $this->postRequest($endpoint, $params);
         $message = $this->getResponseMessage($endpoint, $response);
-
+        
         return $message;
     }
-
-
+    
+    
     /**
      * @return bool
      * @throws \Exception
@@ -79,6 +84,7 @@ class Handler
         $bodySize = $response->getBody()->getSize();
         if($bodySize == 1) {
             $this->errorMessages['balance'] = $this->getResponseMessage($endpoint, $response);
+            
             return false;
         }
         $balanceFromApi = (string) $response->getBody();
@@ -89,12 +95,14 @@ class Handler
         }
         $this->fullBalance = (int) $balance[0];
         $this->availableBalance = (int) $balance[1];
+        
         return true;
     }
-
+    
     /**
      * @param $endpoint
      * @param $response
+     *
      * @return string
      */
     private function getResponseMessage($endpoint, $response): string
@@ -102,48 +110,47 @@ class Handler
         $code = (string) $response->getBody();
         // TODO Check if there s method == $endpoint. Else, return Body
         $message = ResponseMsg::{$endpoint}($code);
-
+        
         return $message;
     }
-
+    
     /**
      * Send the request to Api using Post method
+     *
      * @param string $endpoint
-     * @param array $parmas
+     * @param array  $parmas
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     private function postRequest(string $endpoint, array $parmas): \Psr\Http\Message\ResponseInterface
     {
         $this->serviceIsActive();
-        $response = $this->client()->post($endpoint. '.php', ['form_params' => $parmas]);
-
+        $response = $this->client()->post($endpoint . '.php', ['form_params' => $parmas]);
+        
         return $response;
     }
-
+    
     private function serviceIsActive()
     {
         $body = $this->client()->get('sendStatus.php')->getBody();
         $status = (string) $body;
-
+        
         if($status !== '1')
             throw new ServiceIsNotAvaliableException(
                 "\n The Service is Not Avilable. returned Api status code : $status"
             );
-
+        
         return ($status) ? true : false;
     }
-
+    
     private function client()
     {
         // TODO Put this in a try catch block
         return new Client([
             'base_uri' => $this->base_uri,
-//            'handler' => $this->handler ?? NULL,
 //            'options' => $this->options,
+            // For testing to mock requests
+            'handler'  => $this->handler ?? NULL,
         ]);
     }
-
-
-
-
 }

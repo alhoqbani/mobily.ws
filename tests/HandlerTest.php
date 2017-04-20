@@ -3,10 +3,8 @@
 namespace Tests;
 
 use Alhoqbani\MobilyWs\Handler;
-use Alhoqbani\MobilyWs\SMS;
-use Orchestra\Testbench\TestCase;
 
-class HandlerTest extends TestCase
+class HandlerTest extends TestMobilyWs
 {
     
     protected function setUp()
@@ -36,17 +34,6 @@ class HandlerTest extends TestCase
         $this->assertInstanceOf('GuzzleHttp\Client',
             $client, 'Handler::getClient() Should return an anstance
                 of GuzzzleHttp to pefrom Http requests');
-    }
-    
-    protected function getPackageProviders($app)
-    {
-        return ['Alhoqbani\MobilyWs\MobilyWsServiceProvider'];
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('SMS.mobile', '');
-        $app['config']->set('SMS.password', '');
     }
     
 }
