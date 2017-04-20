@@ -1,19 +1,32 @@
 <?php
 
 namespace Tests;
-use PHPUnit\Framework\TestCase;
+
 use Alhoqbani\MobilyWs\Handler;
+use Alhoqbani\MobilyWs\SMS;
+use Orchestra\Testbench\TestCase;
 
 class HandlerTest extends TestCase
 {
+    
+    protected function setUp()
+    {
+        parent::setUp(); //
+    }
+    
+    protected function tearDown()
+    {
+        parent::tearDown();
+    }
+    
     /** @test */
-    public function it_sets_its_base_uri_from_file()
+    public function it_gets_its_base_uri_from_config_file()
     {
         $handler = new Handler();
         $this->assertAttributeEquals(
             'http://mobily.ws/api/',
-                'base_uri',
-                $handler);
+            'base_uri',
+            $handler);
     }
     
     /** @test */
@@ -24,4 +37,16 @@ class HandlerTest extends TestCase
             $client, 'Handler::getClient() Should return an anstance
                 of GuzzzleHttp to pefrom Http requests');
     }
+    
+    protected function getPackageProviders($app)
+    {
+        return ['Alhoqbani\MobilyWs\MobilyWsServiceProvider'];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('SMS.mobile', '');
+        $app['config']->set('SMS.password', '');
+    }
+    
 }
