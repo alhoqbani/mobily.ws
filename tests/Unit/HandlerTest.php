@@ -1,7 +1,8 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
+use Tests\TestMobilyWs;
 use Alhoqbani\MobilyWs\Handler;
 
 class HandlerTest extends TestMobilyWs

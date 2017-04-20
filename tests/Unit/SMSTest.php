@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests;
+namespace Tests\Unit;
 
+use Tests\TestMobilyWs;
 use Alhoqbani\MobilyWs\SMS;
 
 class SMSTest extends TestMobilyWs
 {
-    use SMSAssertions;
     
     /** @test */
     public function it_can_retrieve_the_avaliable_balance()
