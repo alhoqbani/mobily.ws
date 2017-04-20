@@ -1,6 +1,6 @@
 <?php
 
-namespace Alhoqbani\Mobilyws\Exceptions;
+namespace Alhoqbani\MobilyWs\Exceptions;
 
 class ServiceIsNotAvaliableException extends \Exception
 {

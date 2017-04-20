@@ -1,6 +1,6 @@
 <?php
 
-namespace Alhoqbani\Mobilyws;
+namespace Alhoqbani\MobilyWs;
 
 class ResponseMsg
 {
