@@ -52,7 +52,7 @@ use Alhoqbani\MobilyWs\SMS;
     echo $sms->balance(); // 1124
 ```
 
-
+For now, numbers should be entered with the country code without leading zeros or +
 ### Multiple Recipients:
 You can also pass an array of numbers to the `to()` method.
 ```
