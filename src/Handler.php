@@ -62,7 +62,6 @@ class Handler
             'sender'          => $this->sender,
         ];
         $params = array_merge($params, $message);
-        
         $response = $this->postRequest($endpoint, $params);
         $message = $this->getResponseMessage($endpoint, $response);
         

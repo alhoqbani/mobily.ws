@@ -4,7 +4,7 @@ namespace Alhoqbani\MobilyWs;
 
 class SMS extends Handler
 {
-    private $numbers;
+    private $numbers = [];
     private $msg;
     private $dataSend = 0;
     private $timeSend = 0;
@@ -18,7 +18,11 @@ class SMS extends Handler
 
     public function to($to = null) {
         if(!$to) return $this->numbers;
-        $this->numbers = $to;
+        if (is_array($to)) {
+            $this->numbers = array_merge($to, $this->numbers);
+            return $this;
+        }
+        $this->numbers[] = $to;
         return $this;
     }
 
@@ -34,12 +38,14 @@ class SMS extends Handler
     }
 
     public function send() {
+        $this->numbers = implode(', ' , $this->numbers);
         $params = [
             'numbers' => $this->numbers,
             'msg' => $this->msg,
             'dateSend' => $this->dataSend,
             'timeSend' => $this->timeSend,
         ];
+
         $responseMessage = $this->sendMessage($params);
         $this->result = $responseMessage;
 
