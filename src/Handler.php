@@ -13,9 +13,9 @@ class Handler
     private $applicationType;
     private $mobile;
     private $password;
-    private $availableBalance;
-    private $fullBalance;
-    private $errorMessages = [];
+    protected $availableBalance;
+    protected $fullBalance;
+    protected $errorMessages = [];
     
     public function __construct(HandlerStack $handler = NULL)
     {
@@ -64,6 +64,7 @@ class Handler
         $params = array_merge($params, $message);
         $response = $this->postRequest($endpoint, $params);
         $message = $this->getResponseMessage($endpoint, $response);
+        $this->setBalance();
         
         return $message;
     }

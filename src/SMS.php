@@ -4,11 +4,12 @@ namespace Alhoqbani\MobilyWs;
 
 class SMS extends Handler
 {
+    private $deleteKey;
     private $numbers = [];
     private $msg;
     private $dataSend = 0;
     private $timeSend = 0;
-    private $result;
+    private $results= [];
     
     public function text($msg = null) {
         if(!$msg) return $this->msg;
@@ -29,32 +30,42 @@ class SMS extends Handler
     public function when($dataSend= NULL, $timeSend = null ) {
         $this->dataSend = $dataSend;
         $this->timeSend = $timeSend;
+        $this->setDeleteKey();
 
         return $this;
     }
 
     public function result() {
-        return $this->result;
+        return $this->results['api'];
     }
 
     public function send() {
         $this->numbers = implode(', ' , $this->numbers);
+
         $params = [
             'numbers' => $this->numbers,
             'msg' => $this->msg,
             'dateSend' => $this->dataSend,
             'timeSend' => $this->timeSend,
+            'deleteKey' => $this->deleteKey
         ];
 
         $responseMessage = $this->sendMessage($params);
-        $this->result = $responseMessage;
-
-        return $this;
+        $this->results['api'] = $responseMessage;
+        $this->results['newBalance'] = $this->availableBalance;
+        if ($this->debug) { var_dump($this); }
+        
+        return $this->results;
     }
     
     public function balance()
     {
         return $this->getBalance();
+    }
+    
+    protected function setDeleteKey() {
+        $this->deleteKey = mt_rand(1000, 9999);
+        $this->results['deleteKey'] = $this->deleteKey;
     }
 
 }
