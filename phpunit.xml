@@ -10,8 +10,9 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
-        <testsuite name="Package Test Suite">
-            <directory suffix=".php">./tests/</directory>
+        <testsuite name="Package Unit Test Suite">
+            <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
     </testsuites>
+
 </phpunit>
