@@ -77,3 +77,4 @@ it takes two arguments, date and time. you can pass null to either.
 
 ### Other Functions:
 `removeDuplicate()` Will remove all duplicate numbers and send notRepeat key to mobily.ws
+`domain()` Adds the domainName to the sent sms. 

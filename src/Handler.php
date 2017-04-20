@@ -10,12 +10,12 @@ use GuzzleHttp\HandlerStack;
 class Handler
 {
     
-    private $applicationType;
-    private $mobile;
-    private $password;
     protected $availableBalance;
     protected $fullBalance;
     protected $errorMessages = [];
+    private $applicationType;
+    private $mobile;
+    private $password;
     
     public function __construct(HandlerStack $handler = NULL)
     {
@@ -67,6 +67,23 @@ class Handler
         $this->setBalance();
         
         return $message;
+    }
+    
+    protected function deleteMessages($deleteKey)
+    {
+        $endpoint = 'deleteMsg';
+        $params = [
+            'mobile'    => $this->mobile,
+            'password'  => $this->password,
+            'deleteKey' => $deleteKey,
+        ];
+        $response = $this->postRequest($endpoint, $params);
+        $message = $this->getResponseMessage($endpoint, $response);
+        $this->setBalance();
+        
+        return $message;
+        
+        
     }
     
     
@@ -124,7 +141,6 @@ class Handler
      */
     private function postRequest(string $endpoint, array $parmas): \Psr\Http\Message\ResponseInterface
     {
-        $this->serviceIsActive();
         $response = $this->client()->post($endpoint . '.php', ['form_params' => $parmas]);
         
         return $response;
@@ -148,7 +164,7 @@ class Handler
         // TODO Put this in a try catch block
         return new Client([
             'base_uri' => $this->base_uri,
-//            'options' => $this->options,
+//            'options'  => $this->options,
             // For testing to mock requests
             'handler'  => $this->handler ?? NULL,
         ]);

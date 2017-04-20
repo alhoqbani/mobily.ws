@@ -11,7 +11,7 @@ class SMS extends Handler
     private $dataSend = 0;
     private $timeSend = 0;
     private $results = [];
-    private $remove_duplicate;
+    private $notRepeat;
     
     public function text($msg = NULL)
     {
@@ -36,8 +36,10 @@ class SMS extends Handler
         return $this;
     }
     
-    public function removeDuplicate() {
-        $this->remove_duplicate = true;
+    public function removeDuplicate()
+    {
+        $this->notRepeat = true;
+        
         return $this;
     }
     
@@ -52,12 +54,19 @@ class SMS extends Handler
     
     public function result()
     {
-        return $this->results['api'];
+        return implode(', ', $this->results);
+    }
+    
+    public function domain($domain)
+    {
+        $this->domainName = $domain;
+        
+        return $this;
     }
     
     public function send()
     {
-        if ($this->remove_duplicate) {
+        if($this->notRepeat) {
             $this->numbers = array_unique($this->numbers);
         }
         $this->results['totalNumbers'] = count($this->numbers);
@@ -69,7 +78,8 @@ class SMS extends Handler
             'dateSend'  => $this->dataSend,
             'timeSend'  => $this->timeSend,
             'deleteKey' => $this->deleteKey,
-            'notRepeat' => $this->remove_duplicate,
+            'notRepeat' => $this->notRepeat,
+            'domain'    => $this->domainName,
         ];
         
         $responseMessage = $this->sendMessage($params);
@@ -87,9 +97,27 @@ class SMS extends Handler
         return $this->getBalance();
     }
     
+    public static function deleteSMS($deleteKey)
+    {
+        $sms = new static();
+        $sms->deleteKey = $deleteKey;
+        $sms->delete();
+        
+        return $sms->results;
+    }
+    
+    public function delete($deleteKey)
+    {
+        $responseMessage = $this->deleteMessages($deleteKey);
+        $this->results['api'] = $responseMessage;
+        $this->results['newBalance'] = $this->availableBalance;
+        
+        return $this;
+    }
+    
     protected function setDeleteKey()
     {
-        $this->deleteKey = mt_rand(1000, 9999);
+        $this->deleteKey = substr(md5(mt_rand(1000, 9999)), 0, 7);
         $this->results['deleteKey'] = $this->deleteKey;
     }
     

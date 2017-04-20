@@ -4,9 +4,10 @@ namespace Alhoqbani\MobilyWs;
 
 class ResponseMsg
 {
+    
     public static function balance($code)
     {
-        $arrayBalance = array();
+        $arrayBalance = [];
         $arrayBalance[0] = "لم يتم الاتصال بالخادم";
         $arrayBalance[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayBalance[2] = "كلمة المرور غير صحيحه";
@@ -14,11 +15,13 @@ class ResponseMsg
         if(array_key_exists($code, $arrayBalance)) {
             return $arrayBalance[$code];
         }
+        
         return 3;
     }
-
-    public static function forgetPassword($code) {
-        $arrayForgetPassword = array();
+    
+    public static function forgetPassword($code)
+    {
+        $arrayForgetPassword = [];
         $arrayForgetPassword[0] = "لم يتم الاتصال بالخادم";
         $arrayForgetPassword[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayForgetPassword[2] = "الإيميل الخاص بالحساب غير متوفر";
@@ -27,23 +30,25 @@ class ResponseMsg
         $arrayForgetPassword[5] = "تم إرسال كلمة المرور على الإيميل بنجاح";
         $arrayForgetPassword[6] = "الإيميل الخاص بالحساب غير صحيح";
         $arrayForgetPassword[7] = "رقم الجوال (إسم المستخدم) غير صحيح";
-
+        
         return $arrayForgetPassword[$code];
     }
-
-    public static function changePassword($code) {
-        $arrayChangePassword = array();
+    
+    public static function changePassword($code)
+    {
+        $arrayChangePassword = [];
         $arrayChangePassword[0] = "لم يتم الاتصال بالخادم";
         $arrayChangePassword[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayChangePassword[2] = "كلمة المرور الخاصة بالحساب غير صحيحة";
         $arrayChangePassword[3] = "تمت عملية تغيير كلمة المرور بنجاح";
         $arrayChangePassword[4] = "كلمة المرور الجديده غير صحيحة";
-
+        
         return $arrayChangePassword[$code];
     }
-
-    public static function msgSend($code) {
-        $arraySendMsg = array();
+    
+    public static function msgSend($code)
+    {
+        $arraySendMsg = [];
         $arraySendMsg[0] = "لم يتم الاتصال بالخادم";
         $arraySendMsg[1] = "تمت عملية الإرسال بنجاح";
         $arraySendMsg[2] = "رصيدك 0 , الرجاء إعادة التعبئة حتى تتمكن من إرسال الرسائل";
@@ -64,22 +69,34 @@ class ResponseMsg
         $arraySendMsg[17] = "نص الرسالة غير متوفر أو غير مشفر بشكل صحيح";
         $arraySendMsg[18] = "تم ايقاف الارسال من المزود";
         $arraySendMsg[19] = "لم يتم العثور على مفتاح نوع التطبيق";
-
-        return $arraySendMsg[$code];
+        
+        return $arraySendMsg[$code] ?? 'NO CODE IS';
     }
-
-
-    public function allOriginalMessages() {
+    
+    public static function deleteMsg($code)
+    {
+        $arrayDeleteSMS = [];
+        $arrayDeleteSMS[1] = "تمت عملية الحذف بنجاح";
+        $arrayDeleteSMS[2] = "رقم الجوال (إسم المستخدم) غير صحيح";
+        $arrayDeleteSMS[3] = "كلمة المرور غير صحيحه";
+        $arrayDeleteSMS[4] = "الإرساليه المطلوب حذفها غير متوفره، أو رقم deleteKey خاطئ";
+        
+        return $arrayDeleteSMS[$code] ;
+    }
+    
+    
+    public function allOriginalMessages()
+    {
         //تستخدم هذه القيمة في حال كانت نتيجة العمليه غير معرفه
         $undefinedResult = "نتيجة العملية غير معرفه، الرجاء المحاول مجددا";
 
 //الرسائل الناتجه من دالة فحص إرسال موبايلي
-        $arraySendStatus = array();
+        $arraySendStatus = [];
         $arraySendStatus[0] = "نعتذر الإرسال متوقف الآن";
         $arraySendStatus[1] = "يمكنك الإرسال الآن";
 
 //الرسائل الناتجه من دالة تغيير كلمة المرور
-        $arrayChangePassword = array();
+        $arrayChangePassword = [];
         $arrayChangePassword[0] = "لم يتم الاتصال بالخادم";
         $arrayChangePassword[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayChangePassword[2] = "كلمة المرور الخاصة بالحساب غير صحيحة";
@@ -87,7 +104,7 @@ class ResponseMsg
         $arrayChangePassword[4] = "كلمة المرور الجديده غير صحيحة";
 
 //الرسائل الناتجه من دالة إسترجاع كلمة المرور
-        $arrayForgetPassword = array();
+        $arrayForgetPassword = [];
         $arrayForgetPassword[0] = "لم يتم الاتصال بالخادم";
         $arrayForgetPassword[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayForgetPassword[2] = "الإيميل الخاص بالحساب غير متوفر";
@@ -98,7 +115,7 @@ class ResponseMsg
         $arrayForgetPassword[7] = "رقم الجوال (إسم المستخدم) غير صحيح";
 
 //الرسائل الناتجه من دالة الإرسال
-        $arraySendMsg = array();
+        $arraySendMsg = [];
         $arraySendMsg[0] = "لم يتم الاتصال بالخادم";
         $arraySendMsg[1] = "تمت عملية الإرسال بنجاح";
         $arraySendMsg[2] = "رصيدك 0 , الرجاء إعادة التعبئة حتى تتمكن من إرسال الرسائل";
@@ -119,28 +136,28 @@ class ResponseMsg
         $arraySendMsg[17] = "نص الرسالة غير متوفر أو غير مشفر بشكل صحيح";
         $arraySendMsg[18] = "تم ايقاف الارسال من المزود";
         $arraySendMsg[19] = "لم يتم العثور على مفتاح نوع التطبيق";
-
-        $arrayDeleteSMS = array();
+        
+        $arrayDeleteSMS = [];
         $arrayDeleteSMS[1] = "تمت عملية الحذف بنجاح";
         $arrayDeleteSMS[2] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayDeleteSMS[3] = "كلمة المرور غير صحيحه";
         $arrayDeleteSMS[4] = "الإرساليه المطلوب حذفها غير متوفره، أو رقم deleteKey خاطئ";
 
 //الرسائل الناتجه من دالة طلب الرصيد
-        $arrayBalance = array();
+        $arrayBalance = [];
         $arrayBalance[0] = "لم يتم الاتصال بالخادم";
         $arrayBalance[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayBalance[2] = "كلمة المرور غير صحيحه";
         $arrayBalance[3] = "رصيدك الحالي هو %s نقطه من اصل %s نقطة";
 
 //الرسائل الناتجه من دالة التحقق من طلب إسم المرسل - الأحرف الهجائية
-        $arrayCheckAlphasSender = array();
+        $arrayCheckAlphasSender = [];
         $arrayCheckAlphasSender[0] = "لم يتم الاتصال بالخادم";
         $arrayCheckAlphasSender[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayCheckAlphasSender[2] = "كلمة المرور غير صحيحه";
 
 //الرسائل الناتجه من دالة طلب إسم المرسل - الأحرف الهجائية
-        $arrayAddAlphaSender = array();
+        $arrayAddAlphaSender = [];
         $arrayAddAlphaSender[0] = "لم يتم الاتصال بالخادم";
         $arrayAddAlphaSender[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayAddAlphaSender[2] = "كلمة المرور غير صحيحه";
@@ -148,7 +165,7 @@ class ResponseMsg
         $arrayAddAlphaSender[4] = "تم إضافة الطلب بنجاح";
 
 //الرسائل الناتجه من دالة طلب إسم المرسل - رقم الجوال
-        $arrayAddSender = array();
+        $arrayAddSender = [];
         $arrayAddSender[0] = "لم يتم الاتصال بالخادم";
         $arrayAddSender[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayAddSender[2] = "كلمة المرور غير صحيحه";
@@ -158,7 +175,7 @@ class ResponseMsg
         $arrayAddSender[6] = "كلمة المرور غير صحيحه";
 
 //الرسائل الناتجه من دالة التحقق من طلب تفعيل إسم المرسل - رقم جوال
-        $arrayCheckSender = array();
+        $arrayCheckSender = [];
         $arrayCheckSender[0] = "اسم المرسل غير مفعل";
         $arrayCheckSender[1] = "إسم المرسل مفعل";
         $arrayCheckSender[2] = "إسم المرسل مرفوض";
@@ -167,7 +184,7 @@ class ResponseMsg
         $arrayCheckSender[5] = "senderId خاطئ";
 
 //الرسائل الناتجه من دالة تفعيل طلب إسم المرسل - رقم جوال
-        $arrayActiveSender = array();
+        $arrayActiveSender = [];
         $arrayActiveSender[0] = "لم يتم الاتصال بالخادم";
         $arrayActiveSender[1] = "رقم الجوال (إسم المستخدم) غير صحيح";
         $arrayActiveSender[2] = "كلمة المرور غير صحيحه";
@@ -176,7 +193,7 @@ class ResponseMsg
         $arrayActiveSender[5] = "senderId خاطئ";
 
 //الرسائل الناتجه من دالة قالب الإرسال
-        $arraySendMsgWK = array();
+        $arraySendMsgWK = [];
         $arraySendMsgWK[0] = "لم يتم الاتصال بالخادم";
         $arraySendMsgWK[1] = "تمت عملية الإرسال بنجاح";
         $arraySendMsgWK[2] = "رصيدك 0 , الرجاء إعادة التعبئة حتى تتمكن من إرسال الرسائل";

@@ -19,12 +19,13 @@ class TestMobilyWs extends TestCase
     use SMSAssertions;
     protected $handler;
     
-    protected function createResponse($body) {
-        $mock = new MockHandler([
-            new Response(200, [], 1),
-            new Response(200, [], $body),
-            new RequestException("Error Communicating with Server", new Request('GET', 'test'))
-        ]);
+    protected function createResponse($responses =[]) {
+        $handler_responses = [];
+        foreach($responses as $body) {
+            $handler_responses[] = new Response('',[], $body);
+        }
+        $handler_responses[] = new RequestException("Error Communicating with Server", new Request('GET', 'test'));
+        $mock = new MockHandler($handler_responses);
         $handler = HandlerStack::create($mock);
         return $handler;
     }

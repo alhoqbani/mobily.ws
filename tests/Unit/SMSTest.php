@@ -11,7 +11,7 @@ class SMSTest extends TestMobilyWs
     /** @test */
     public function it_can_retrieve_the_avaliable_balance()
     {
-        $handler = $this->createResponse('2300/6000');
+        $handler = $this->createResponse(['2300/6000']);
         $sms = new SMS($handler);
         $balance = $sms->balance();
 
@@ -31,6 +31,15 @@ class SMSTest extends TestMobilyWs
         );
     }
     
+    /** @test */
+    public function it_delete_postponed_message()
+    {
+        $handler = $this->createResponse([1,1]);
+        $sms = new SMS($handler);
+        $sms->delete('somecode');
+        
+        $this->assertContains('بنجاح', $sms->result());
+    }
     
     
 }
