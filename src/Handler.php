@@ -91,7 +91,7 @@ class Handler
      * @return bool
      * @throws \Exception
      */
-    private function setBalance(): bool
+    private function setBalance()
     {
         $endpoint = 'balance';
         $params = [
@@ -122,7 +122,7 @@ class Handler
      *
      * @return string
      */
-    private function getResponseMessage($endpoint, $response): string
+    private function getResponseMessage($endpoint, $response)
     {
         $code = (string) $response->getBody();
         // TODO Check if there s method == $endpoint. Else, return Body
@@ -139,7 +139,7 @@ class Handler
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function postRequest(string $endpoint, array $parmas): \Psr\Http\Message\ResponseInterface
+    private function postRequest($endpoint, array $parmas)
     {
         $response = $this->client()->post($endpoint . '.php', ['form_params' => $parmas]);
         
@@ -166,7 +166,7 @@ class Handler
             'base_uri' => $this->base_uri,
 //            'options'  => $this->options,
             // For testing to mock requests
-            'handler'  => $this->handler ?? NULL,
+            'handler'  => isset($this->handler) ?  $this->handler : NULL
         ]);
     }
 }
