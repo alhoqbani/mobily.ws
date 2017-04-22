@@ -26,9 +26,10 @@ class Handler
         $this->handler = $handler;
     }
     
-    public static function getClient()
+    public static function getClient($handler = null)
     {
         $client = new static();
+        $client->handler = $handler;
         if($client->serviceIsActive()) {
             $client = $client->client();
         }
