@@ -2,7 +2,6 @@
 
 namespace Alhoqbani\MobilyWs;
 
-use Alhoqbani\MobilyWs\Exceptions\ServiceIsNotAvaliableException;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 
@@ -16,6 +15,7 @@ class Handler
     private $applicationType;
     private $mobile;
     private $password;
+    private $active;
     
     public function __construct(HandlerStack $handler = NULL)
     {
@@ -24,9 +24,10 @@ class Handler
             $this->{$key} = $value;
         }
         $this->handler = $handler;
+        $this->fetchStatus();
     }
     
-    public static function getClient($handler = null)
+    public static function getClient($handler = NULL)
     {
         $client = new static();
         $client->handler = $handler;
@@ -83,10 +84,12 @@ class Handler
         $this->setBalance();
         
         return $message;
-        
-        
     }
     
+    protected function serviceIsActive()
+    {
+        return ($this->active) ? true : false;
+    }
     
     /**
      * @return bool
@@ -147,27 +150,32 @@ class Handler
         return $response;
     }
     
-    private function serviceIsActive()
-    {
-        $body = $this->client()->get('sendStatus.php')->getBody();
-        $status = (string) $body;
-        
-        if($status !== '1')
-            throw new ServiceIsNotAvaliableException(
-                "\n The Service is Not Avilable. returned Api status code : $status"
-            );
-        
-        return ($status) ? true : false;
-    }
-    
     private function client()
     {
         // TODO Put this in a try catch block
         return new Client([
             'base_uri' => $this->base_uri,
-//            'options'  => $this->options,
+            //            'options'  => $this->options,
             // For testing to mock requests
-            'handler'  => isset($this->handler) ?  $this->handler : NULL
+            'handler'  => isset($this->handler) ? $this->handler : NULL,
         ]);
+    }
+    
+    private function fetchStatus()
+    {
+        $response = $this->client()->get('sendStatus.php');
+        $body = $response->getBody()->getContents();
+        if($body == '1') {
+            $this->active = true;
+            
+            return;
+        }
+        // Serivce is not active
+        $message = $this->getResponseMessage('sendStatus', $response);
+        $this->errorMessages['service_status'] = $message;
+        $this->active = false;
+//            throw new ServiceIsNotAvaliableException(
+//                "\n The Service is Not Avilable. returned Api status code : $body"
+//            );
     }
 }
