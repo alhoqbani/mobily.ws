@@ -5,6 +5,17 @@ namespace Alhoqbani\MobilyWs;
 class ResponseMsg
 {
     
+    public static function sendStatus($code)
+    {
+        $arraySendStatus = [];
+        $arraySendStatus[0] = "نعتذر الإرسال متوقف الآن";
+        $arraySendStatus[1] = "يمكنك الإرسال الآن";
+        
+        if(array_key_exists($code, $arraySendStatus)) {
+            return $arraySendStatus[$code];
+        }
+    }
+    
     public static function balance($code)
     {
         $arrayBalance = [];
@@ -70,7 +81,13 @@ class ResponseMsg
         $arraySendMsg[18] = "تم ايقاف الارسال من المزود";
         $arraySendMsg[19] = "لم يتم العثور على مفتاح نوع التطبيق";
         
-        $message = isset($arraySendMsg[$code]) ? $arraySendMsg[$code] :  'Unknown Message';
+        if(array_key_exists($code, $arraySendMsg)) {
+            return $arraySendMsg[$code];
+        }
+        $message = "نتيجة العملية غير معرفه، الرجاء المحاول مجددا";
+        $message .= "الكود المرسل من الموقع: ";
+        $message .= "{$code}";
+        
         return $message;
     }
     
@@ -82,9 +99,8 @@ class ResponseMsg
         $arrayDeleteSMS[3] = "كلمة المرور غير صحيحه";
         $arrayDeleteSMS[4] = "الإرساليه المطلوب حذفها غير متوفره، أو رقم deleteKey خاطئ";
         
-        return $arrayDeleteSMS[$code] ;
+        return $arrayDeleteSMS[$code];
     }
-    
     
     public function allOriginalMessages()
     {
@@ -92,9 +108,6 @@ class ResponseMsg
         $undefinedResult = "نتيجة العملية غير معرفه، الرجاء المحاول مجددا";
 
 //الرسائل الناتجه من دالة فحص إرسال موبايلي
-        $arraySendStatus = [];
-        $arraySendStatus[0] = "نعتذر الإرسال متوقف الآن";
-        $arraySendStatus[1] = "يمكنك الإرسال الآن";
 
 //الرسائل الناتجه من دالة تغيير كلمة المرور
         $arrayChangePassword = [];
