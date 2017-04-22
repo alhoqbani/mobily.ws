@@ -13,6 +13,15 @@ class SMS extends Handler
     private $results = [];
     private $notRepeat;
     
+    public static function deleteSMS($deleteKey)
+    {
+        $sms = new static();
+        $sms->deleteKey = $deleteKey;
+        $sms->delete();
+        
+        return $sms;
+    }
+    
     public function text($msg = NULL)
     {
         if( ! $msg)
@@ -95,15 +104,6 @@ class SMS extends Handler
     public function balance()
     {
         return $this->getBalance();
-    }
-    
-    public static function deleteSMS($deleteKey)
-    {
-        $sms = new static();
-        $sms->deleteKey = $deleteKey;
-        $sms->delete();
-        
-        return $sms->results;
     }
     
     public function delete($deleteKey)
