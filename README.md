@@ -1,10 +1,10 @@
-[![Latest Stable Version](https://poser.pugx.org/alhoqbani/mobily.ws/v/stable)](https://packagist.org/packages/alhoqbani/mobily.ws)
+<p align="center">
+<a href="https://packagist.org/packages/alhoqbani/mobily.ws"><img src="https://poser.pugx.org/alhoqbani/mobily.ws/downloads" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/alhoqbani/mobily.ws"><img src="https://poser.pugx.org/alhoqbani/mobily.ws/version" alt="stabel version"></a>
+<a href="https://packagist.org/packages/alhoqbani/mobily.ws"><img src="https://poser.pugx.org/alhoqbani/mobily.ws/license" alt="license"></a>
+<a href="https://travis-ci.org/alhoqbani/mobily.ws"><img src="https://travis-ci.org/alhoqbani/mobily.ws.svg?branch=master" alt="Build Status"></a>
+</p>
 
-[![Total Downloads](https://poser.pugx.org/alhoqbani/mobily.ws/downloads)](https://packagist.org/packages/alhoqbani/mobily.ws)
-
-[![Latest Unstable Version](https://poser.pugx.org/alhoqbani/mobily.ws/v/unstable)](https://packagist.org/packages/alhoqbani/mobily.ws)
-
-[![License](https://poser.pugx.org/alhoqbani/mobily.ws/license)](https://packagist.org/packages/alhoqbani/mobily.ws)
 
 ## Laravel SMS Library
  Under Development, 
