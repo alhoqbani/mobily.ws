@@ -70,7 +70,8 @@ class ResponseMsg
         $arraySendMsg[18] = "تم ايقاف الارسال من المزود";
         $arraySendMsg[19] = "لم يتم العثور على مفتاح نوع التطبيق";
         
-        return $arraySendMsg[$code] ?? 'NO CODE IS';
+        $message = isset($arraySendMsg[$code]) ? $arraySendMsg[$code] :  'Unknown Message';
+        return $message;
     }
     
     public static function deleteMsg($code)
