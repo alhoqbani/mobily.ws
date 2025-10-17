@@ -17,7 +17,7 @@ This is a Laravel package to send SMS using http://mobily.ws.
 
 1. Install the package using Composer:
 ```
-Composer require alhoqhbani\mobily.ws
+composer require alhoqbani\mobily.ws
 ```
 
 
